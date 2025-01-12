@@ -37,7 +37,7 @@
 .login-form {
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between inputs and button */
+    gap: 10px;
 }
 
 .login-form input {
@@ -64,15 +64,38 @@
     background-color: #0056b3;
 }
 
+/* Welcome Text */
+.welcome-text {
+    font-size: 14px;
+    margin-right: 10px;
+    color: #555;
+}
+
 /* Mobile Adjustments */
 @media (max-width: 600px) {
+    .page-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .left-section, .right-section {
+        width: 100%;
+        justify-content: center;
+    }
+
     .login-form {
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
 
     .login-form input,
     .auth-button {
         width: 100%;
+    }
+
+    .welcome-text {
+        margin-bottom: 10px;
+        text-align: center;
     }
 }

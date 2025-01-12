@@ -19,31 +19,22 @@ const RegisterDialog = ({ onClose, setIsLoggedIn }) => {
         fetch("http://localhost:8082/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ email, username, password }),
         })
-            .then((res) => {
-                if (res.ok) {
-                    // Automatically log in the user after successful registration
-                    return fetch("http://localhost:8082/auth/login", {
-                        method: "POST",
-                        credentials: "include",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ username, password }),
-                    });
+            .then((res) => res.json().then(data => ({ status: res.status, body: data })))
+            .then(({ status, body }) => {
+                if (status === 200) {
+                    setIsLoggedIn(true);  // Automatically set the user as logged in
+                    setUsername(body.username);  // Update the username in the state
+                    onClose();  // Close the registration dialog
                 } else {
-                    throw new Error("Registration failed. Username or email might be taken.");
-                }
-            })
-            .then((res) => {
-                if (res.ok) {
-                    setIsLoggedIn(true);  // Set logged in state
-                    onClose();  // Close the dialog
-                } else {
-                    throw new Error("Auto-login failed after registration.");
+                    throw new Error(body.error || "Registration failed. Please try again.");
                 }
             })
             .catch((err) => setError(err.message));
     };
+
 
     return (
         <div className="dialog-overlay">
