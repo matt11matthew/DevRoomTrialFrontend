@@ -1,28 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import './PageTitle.css';
-import logo from '../img_1.png';
-import RegisterDialog from './RegisterDialog';
+import React, { useState, useEffect } from "react";
+import "./PageTitle.css";
+import logo from "../img_1.png";
+import RegisterDialog from "./RegisterDialog";
 
 const PageTitle = ({ title }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [username, setUsername] = useState(localStorage.getItem("username") || "");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const [showRegisterDialog, setShowRegisterDialog] = useState(false);
 
     useEffect(() => {
+        // Check session validity on component mount
         fetch("http://localhost:8082/auth/check-session", { credentials: "include" })
             .then((res) => res.json())
             .then((data) => {
                 if (data.loggedIn) {
                     setIsLoggedIn(true);
                     setUsername(data.username);
+
+
+                    localStorage.setItem("username", data.username); // Persist username
+                } else {
+                    setIsLoggedIn(false);
+                    localStorage.removeItem("username"); // Clear username if session invalid
                 }
-            });
+            })
+            .catch(() => setError("Failed to validate session. Please try again later."));
     }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setError(""); // Clear error before login attempt
         fetch("http://localhost:8082/auth/login", {
             method: "POST",
             credentials: "include",
@@ -32,7 +41,9 @@ const PageTitle = ({ title }) => {
             .then((res) => {
                 if (res.ok) {
                     setIsLoggedIn(true);
-                    setError('');
+                    setPassword(""); // Clear password for security
+                    setError("");
+                    localStorage.setItem("username", username); // Save username
                 } else {
                     setError("Invalid username or password");
                 }
@@ -44,9 +55,11 @@ const PageTitle = ({ title }) => {
         fetch("http://localhost:8082/auth/logout", { method: "POST", credentials: "include" })
             .then(() => {
                 setIsLoggedIn(false);
-                setUsername('');
-                setPassword('');
-            });
+                setUsername("");
+                setPassword("");
+                localStorage.removeItem("username"); // Clear stored username
+            })
+            .catch(() => setError("Failed to log out. Please try again."));
     };
 
     return (
@@ -57,11 +70,13 @@ const PageTitle = ({ title }) => {
             </div>
 
             <div className="right-section">
-                {isLoggedIn && (
-                    <span className="welcome-text">Welcome, {username}!</span>
-                )}
                 {isLoggedIn ? (
-                    <button onClick={handleLogout} className="auth-button logout">Logout</button>
+                    <>
+                        <span className="welcome-text">Welcome, {username}!</span>
+                        <button onClick={handleLogout} className="auth-button logout">
+                            Logout
+                        </button>
+                    </>
                 ) : (
                     <form onSubmit={handleLogin} className="login-form">
                         <input
@@ -78,14 +93,30 @@ const PageTitle = ({ title }) => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <button type="submit" className="auth-button login">Login</button>
-                        <button type="button" className="auth-button register" onClick={() => setShowRegisterDialog(true)}>Register</button>
+                        <button type="submit" className="auth-button login">
+                            Login
+                        </button>
+                        <button
+                            type="button"
+                            className="auth-button register"
+                            onClick={() => {
+                                setError(""); // Clear errors when opening registration
+                                setShowRegisterDialog(true);
+                            }}
+                        >
+                            Register
+                        </button>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                 )}
             </div>
 
-            {showRegisterDialog && <RegisterDialog onClose={() => setShowRegisterDialog(false)} setIsLoggedIn={setIsLoggedIn} />}
+            {showRegisterDialog && (
+                <RegisterDialog
+                    onClose={() => setShowRegisterDialog(false)}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            )}
         </div>
     );
 };
