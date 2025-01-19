@@ -6,7 +6,7 @@
 
 .table-container {
     margin: 0 auto;
-    max-width: 1440px; /* Increased max width by 20% */
+    max-width: 1440px;
     overflow-x: auto;
 }
 
@@ -15,13 +15,13 @@
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 21px; /* Increased font size by 20% */
+    font-size: 20px;
     text-align: left;
 }
 
 .styled-table th,
 .styled-table td {
-    padding: 18px 24px; /* Increased padding by 20% */
+    padding: 16px;
     border: 1px solid #ddd;
 }
 
@@ -43,14 +43,102 @@
 
 /* Styling for the book image */
 .book-image {
-    width: 96px; /* Increased image size by 20% */
+    width: 80px;
     height: auto;
     border-radius: 5px;
     display: block;
-    margin: 0 auto; /* Center the image in its cell */
+    margin: 0 auto;
 }
 
-/* Ensure responsive scaling for mobile */
+/* Create Book Button */
+.create-book-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-book-button:hover {
+    background-color: #218838;
+}
+
+/* Dialog overlay and dialog box */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog h3 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.dialog input,
+.dialog textarea {
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.dialog input:focus,
+.dialog textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.dialog button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dialog button:first-of-type {
+    background-color: #28a745;
+    color: white;
+}
+
+.dialog button:first-of-type:hover {
+    background-color: #218838;
+}
+
+.dialog button:last-of-type {
+    background-color: #dc3545;
+    color: white;
+}
+
+.dialog button:last-of-type:hover {
+    background-color: #c82333;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
     .table-container {
         max-width: 100%;
@@ -59,11 +147,20 @@
     .styled-table th,
     .styled-table td {
         padding: 12px;
-        font-size: 16px; /* Adjusted font size for smaller screens */
+        font-size: 16px;
     }
 
     .book-image {
-        width: 72px; /* Scaled image down for smaller screens */
+        width: 72px;
+    }
+
+    .dialog {
+        width: 95%;
+    }
+
+    .dialog button {
+        font-size: 14px;
+        padding: 8px 12px;
     }
 }
 
@@ -71,10 +168,15 @@
     .styled-table th,
     .styled-table td {
         padding: 10px;
-        font-size: 14px; /* Adjusted for very small screens */
+        font-size: 14px;
     }
 
     .book-image {
-        width: 60px; /* Scaled image down further for very small screens */
+        width: 60px;
+    }
+
+    .dialog {
+        padding: 15px;
+        font-size: 14px;
     }
 }

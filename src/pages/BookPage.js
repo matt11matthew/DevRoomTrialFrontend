@@ -164,8 +164,9 @@ const BookPage = () => {
             <div className="book-page">
                 <button className="btn-back" onClick={handleBack}>Back</button>
                 <h1>{book.title}</h1>
-                {book.imageUrl && <img className="book-image" src={book.imageUrl} alt={book.title} />}
-                <p>{book.description}</p>
+                {book.imageUrl && <img className="book-image" src={book.imageUrl} alt={book.title}/>}
+                <p className="book-description">{book.description}</p>
+
                 <p>Status: {book.status === 'checked_out' ? `Checked out by ${book.checkedOutBy}` : 'Available'}</p>
 
                 {isLoggedIn && (book.status === 'Available' || book.status === null) && (

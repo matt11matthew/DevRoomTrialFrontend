@@ -10,12 +10,14 @@
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
+
 .book-page .login-prompt {
     margin-top: 20px;
     color: #dc3545;
     font-weight: bold;
     text-align: center;
 }
+
 .btn-back {
     background-color: #007BFF;
     color: #fff;
@@ -54,11 +56,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Description styles */
+/* Description styles with wrapping */
 .book-page p {
     margin: 10px 0;
     font-size: 16px;
     color: #555;
+}
+
+.book-page p.book-description {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: justify;
 }
 
 /* Status display */
@@ -149,6 +158,7 @@
         font-size: 14px;
     }
 }
+
 /* Modal styles */
 .modal {
     position: fixed;
