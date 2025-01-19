@@ -1,0 +1,37 @@
+.sessions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.sessions-table thead tr {
+    background-color: #007bff;
+    color: white;
+    text-align: left;
+}
+
+.sessions-table th,
+.sessions-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.sessions-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
