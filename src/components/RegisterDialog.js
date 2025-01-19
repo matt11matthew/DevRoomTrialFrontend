@@ -17,7 +17,7 @@ const RegisterDialog = ({ onClose, setIsLoggedIn }) => {
             return;
         }
 
-        fetch("${baseUrl}/auth/register", {
+        fetch(`${baseUrl}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
