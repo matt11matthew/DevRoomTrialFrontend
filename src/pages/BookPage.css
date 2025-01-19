@@ -1,0 +1,126 @@
+/* General styles for the book page */
+.book-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Book title styles */
+.book-page h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Book image styles */
+.book-page img.book-image {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Description styles */
+.book-page p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Status display */
+.book-page p.status {
+    font-weight: bold;
+    color: #007BFF;
+    text-align: center;
+}
+
+/* Button container */
+.book-page .button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Button styles */
+.book-page button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 10px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+}
+
+/* Hover and active effects */
+.book-page button:hover {
+    opacity: 0.9;
+}
+
+.book-page button:active {
+    transform: scale(0.95);
+}
+
+/* Checkout button */
+.book-page .btn-checkout {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.book-page .btn-checkout:hover {
+    background-color: #218838;
+}
+
+/* Return button */
+.book-page .btn-return {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.book-page .btn-return:hover {
+    background-color: #138496;
+}
+
+/* Delete button */
+.book-page .btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.book-page .btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .book-page {
+        padding: 10px;
+    }
+
+    .book-page h1 {
+        font-size: 24px;
+    }
+
+    .book-page p {
+        font-size: 14px;
+    }
+
+    .book-page img.book-image {
+        max-width: 100%;
+    }
+
+    .book-page button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

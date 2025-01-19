@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import PageTitle from "../components/PageTitle";
+import './BookPage.css'; // Import the CSS
 
 const BookPage = ({ username }) => {
     const { id } = useParams();
@@ -8,8 +10,7 @@ const BookPage = ({ username }) => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-        // Fetch book details
-        fetch(`${baseUrl}/api/books/${id}`)
+        fetch(`${baseUrl}/book/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Book not found');
@@ -27,12 +28,12 @@ const BookPage = ({ username }) => {
     }, [id, navigate, baseUrl]);
 
     const handleCheckOut = () => {
-        fetch(`${baseUrl}/api/books/${id}/checkout`, {
+        fetch(`${baseUrl}/book/${id}/checkout`, {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'username': username, // Pass username here
+                'username': username,
             },
         })
             .then(response => {
@@ -52,12 +53,12 @@ const BookPage = ({ username }) => {
     };
 
     const handleReturn = () => {
-        fetch(`${baseUrl}/api/books/${id}/return`, {
+        fetch(`${baseUrl}/book/${id}/return`, {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'username': username, // Pass username here
+                'username': username,
             },
         })
             .then(response => {
@@ -78,7 +79,7 @@ const BookPage = ({ username }) => {
 
     const handleDelete = () => {
         if (window.confirm('Are you sure you want to delete this book?')) {
-            fetch(`${baseUrl}/api/books/${id}`, {
+            fetch(`${baseUrl}/book/${id}`, {
                 method: 'DELETE',
                 credentials: 'include',
             })
@@ -101,24 +102,25 @@ const BookPage = ({ username }) => {
     }
 
     return (
-        <div className="book-page">
-            <h1>{book.title}</h1>
-            {book.image && <img src={book.image} alt={book.title} />}
-            <p>{book.description}</p>
-            <p>Status: {book.status === 'checked_out' ? `Checked out by ${book.checkedOutBy}` : 'Available'}</p>
+        <>
+            <PageTitle title="Library" />
+            <div className="book-page">
+                <h1>{book.title}</h1>
+                {book.image && <img className="book-image" src={book.image} alt={book.title}/>}
+                <p>{book.description}</p>
+                <p>Status: {book.status === 'checked_out' ? `Checked out by ${book.checkedOutBy}` : 'Available'}</p>
 
-            {book.status === 'available' && (
-                <button onClick={handleCheckOut}>Check Out</button>
-            )}
+                {(book.status === 'Available' || book.status === null) && (
+                    <button className="btn-checkout" onClick={handleCheckOut}>Check Out</button>
+                )}
 
-            {book.status === 'checked_out' && book.checkedOutBy === username && (
-                <button onClick={handleReturn}>Return Book</button>
-            )}
+                {book.status === 'checked_out' && book.checkedOutBy === username && (
+                    <button className="btn-return" onClick={handleReturn}>Return Book</button>
+                )}
 
-            <button onClick={handleDelete} style={{ backgroundColor: 'red', color: 'white' }}>
-                Delete Book
-            </button>
-        </div>
+                <button className="btn-delete" onClick={handleDelete}>Delete Book</button>
+            </div>
+        </>
     );
 };
 
