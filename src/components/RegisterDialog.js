@@ -7,6 +7,7 @@ const RegisterDialog = ({ onClose, setIsLoggedIn }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -16,7 +17,7 @@ const RegisterDialog = ({ onClose, setIsLoggedIn }) => {
             return;
         }
 
-        fetch("http://localhost:8082/auth/register", {
+        fetch("${baseUrl}/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",

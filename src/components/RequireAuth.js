@@ -5,12 +5,13 @@ const RequireAuth = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
         console.log("Starting session validation...");
 
         const checkSession = () => {
-            fetch("http://localhost:8082/auth/check-session", { credentials: "include" })
+            fetch(`${baseUrl}/auth/check-session`, { credentials: "include" })
                 .then((res) => {
                     if (!res.ok) {
                         throw new Error("Session check failed");

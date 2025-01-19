@@ -9,9 +9,10 @@ const PageTitle = ({ title }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [showRegisterDialog, setShowRegisterDialog] = useState(false);
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-        fetch("http://localhost:8082/auth/check-session", { credentials: "include" })
+        fetch(`${baseUrl}/auth/check-session`, { credentials: "include" })
             .then((res) => res.json())
             .then((data) => {
                 if (data.loggedIn) {
@@ -29,7 +30,7 @@ const PageTitle = ({ title }) => {
     const handleLogin = (e) => {
         e.preventDefault();
         setError("");
-        fetch("http://localhost:8082/auth/login", {
+        fetch(`${baseUrl}/auth/login`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -49,7 +50,7 @@ const PageTitle = ({ title }) => {
     };
 
     const handleLogout = () => {
-        fetch("http://localhost:8082/auth/logout", { method: "POST", credentials: "include" })
+        fetch(`${baseUrl}/auth/logout`, { method: "POST", credentials: "include" })
             .then(() => {
                 setIsLoggedIn(false);
                 setUsername("");
@@ -72,17 +73,10 @@ const PageTitle = ({ title }) => {
             <div className="right-section">
                 {isLoggedIn ? (
                     <>
-                        {/*<button*/}
-                        {/*    onClick={() => (window.location.href = "/session-page")}*/}
-                        {/*    className="auth-button session-link"*/}
-                        {/*>*/}
-                        {/*    Go to Session Page*/}
-                        {/*</button>*/}
                         <div><a>Welcome, </a> <a href="/session-page" className="welcome-text">
                             {username}!
                         </a></div>
 
-                        {/*<span className="welcome-text">Welcome, {username}!</span>*/}
                         <button onClick={handleLogout} className="auth-button logout">
                             Logout
                         </button>
