@@ -62,68 +62,27 @@ const PageTitle = ({ title }) => {
     return (
         <div className="page-title">
             <div className="left-section">
-                <img src={logo} alt="Logo" className="logo"/>
+                <a href="/">
+                    <img src={logo} alt="Logo" className="logo"/>
+                </a>
                 <h1>{title}</h1>
             </div>
 
-            {/*<div className="right-section">*/}
-            {/*    {isLoggedIn ? (*/}
-            {/*        <>*/}
-            {/*            <span className="welcome-text">Welcome, {username}!</span>*/}
-            {/*            <button*/}
-            {/*                onClick={() => (window.location.href = "/session-page")}*/}
-            {/*                className="auth-button session-link"*/}
-            {/*            >*/}
-            {/*                Go to Session Page*/}
-            {/*            </button>*/}
-            {/*            <button onClick={handleLogout} className="auth-button logout">*/}
-            {/*                Logout*/}
-            {/*            </button>*/}
-            {/*        </>*/}
-            {/*    ) : (*/}
-            {/*        <form onSubmit={handleLogin} className="login-form">*/}
-            {/*            <input*/}
-            {/*                type="text"*/}
-            {/*                placeholder="Username"*/}
-            {/*                value={username}*/}
-            {/*                onChange={(e) => setUsername(e.target.value)}*/}
-            {/*                required*/}
-            {/*            />*/}
-            {/*            <input*/}
-            {/*                type="password"*/}
-            {/*                placeholder="Password"*/}
-            {/*                value={password}*/}
-            {/*                onChange={(e) => setPassword(e.target.value)}*/}
-            {/*                required*/}
-            {/*            />*/}
-            {/*            <button type="submit" className="auth-button login">*/}
-            {/*                Login*/}
-            {/*            </button>*/}
-            {/*            <button*/}
-            {/*                type="button"*/}
-            {/*                className="auth-button register"*/}
-            {/*                onClick={() => {*/}
-            {/*                    setError("");*/}
-            {/*                    setShowRegisterDialog(true);*/}
-            {/*                }}*/}
-            {/*            >*/}
-            {/*                Register*/}
-            {/*            </button>*/}
-            {/*            {error && <p className="error-message">{error}</p>}*/}
-            {/*        </form>*/}
-            {/*    )}*/}
-            {/*</div>*/}
 
             <div className="right-section">
                 {isLoggedIn ? (
                     <>
-                        <button
-                            onClick={() => (window.location.href = "/session-page")}
-                            className="auth-button session-link"
-                        >
-                            Go to Session Page
-                        </button>
-                        <span className="welcome-text">Welcome, {username}!</span>
+                        {/*<button*/}
+                        {/*    onClick={() => (window.location.href = "/session-page")}*/}
+                        {/*    className="auth-button session-link"*/}
+                        {/*>*/}
+                        {/*    Go to Session Page*/}
+                        {/*</button>*/}
+                        <div><a>Welcome, </a> <a href="/session-page" className="welcome-text">
+                            {username}!
+                        </a></div>
+
+                        {/*<span className="welcome-text">Welcome, {username}!</span>*/}
                         <button onClick={handleLogout} className="auth-button logout">
                             Logout
                         </button>
