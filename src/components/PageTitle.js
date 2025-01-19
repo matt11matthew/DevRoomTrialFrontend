@@ -11,19 +11,16 @@ const PageTitle = ({ title }) => {
     const [showRegisterDialog, setShowRegisterDialog] = useState(false);
 
     useEffect(() => {
-        // Check session validity on component mount
         fetch("http://localhost:8082/auth/check-session", { credentials: "include" })
             .then((res) => res.json())
             .then((data) => {
                 if (data.loggedIn) {
                     setIsLoggedIn(true);
                     setUsername(data.username);
-
-
-                    localStorage.setItem("username", data.username); // Persist username
+                    localStorage.setItem("username", data.username);
                 } else {
                     setIsLoggedIn(false);
-                    localStorage.removeItem("username"); // Clear username if session invalid
+                    localStorage.removeItem("username");
                 }
             })
             .catch(() => setError("Failed to validate session. Please try again later."));
@@ -31,7 +28,7 @@ const PageTitle = ({ title }) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        setError(""); // Clear error before login attempt
+        setError("");
         fetch("http://localhost:8082/auth/login", {
             method: "POST",
             credentials: "include",
@@ -41,9 +38,9 @@ const PageTitle = ({ title }) => {
             .then((res) => {
                 if (res.ok) {
                     setIsLoggedIn(true);
-                    setPassword(""); // Clear password for security
+                    setPassword("");
                     setError("");
-                    localStorage.setItem("username", username); // Save username
+                    localStorage.setItem("username", username);
                 } else {
                     setError("Invalid username or password");
                 }
@@ -57,7 +54,7 @@ const PageTitle = ({ title }) => {
                 setIsLoggedIn(false);
                 setUsername("");
                 setPassword("");
-                localStorage.removeItem("username"); // Clear stored username
+                localStorage.removeItem("username");
             })
             .catch(() => setError("Failed to log out. Please try again."));
     };
@@ -65,13 +62,67 @@ const PageTitle = ({ title }) => {
     return (
         <div className="page-title">
             <div className="left-section">
-                <img src={logo} alt="Logo" className="logo" />
+                <img src={logo} alt="Logo" className="logo"/>
                 <h1>{title}</h1>
             </div>
+
+            {/*<div className="right-section">*/}
+            {/*    {isLoggedIn ? (*/}
+            {/*        <>*/}
+            {/*            <span className="welcome-text">Welcome, {username}!</span>*/}
+            {/*            <button*/}
+            {/*                onClick={() => (window.location.href = "/session-page")}*/}
+            {/*                className="auth-button session-link"*/}
+            {/*            >*/}
+            {/*                Go to Session Page*/}
+            {/*            </button>*/}
+            {/*            <button onClick={handleLogout} className="auth-button logout">*/}
+            {/*                Logout*/}
+            {/*            </button>*/}
+            {/*        </>*/}
+            {/*    ) : (*/}
+            {/*        <form onSubmit={handleLogin} className="login-form">*/}
+            {/*            <input*/}
+            {/*                type="text"*/}
+            {/*                placeholder="Username"*/}
+            {/*                value={username}*/}
+            {/*                onChange={(e) => setUsername(e.target.value)}*/}
+            {/*                required*/}
+            {/*            />*/}
+            {/*            <input*/}
+            {/*                type="password"*/}
+            {/*                placeholder="Password"*/}
+            {/*                value={password}*/}
+            {/*                onChange={(e) => setPassword(e.target.value)}*/}
+            {/*                required*/}
+            {/*            />*/}
+            {/*            <button type="submit" className="auth-button login">*/}
+            {/*                Login*/}
+            {/*            </button>*/}
+            {/*            <button*/}
+            {/*                type="button"*/}
+            {/*                className="auth-button register"*/}
+            {/*                onClick={() => {*/}
+            {/*                    setError("");*/}
+            {/*                    setShowRegisterDialog(true);*/}
+            {/*                }}*/}
+            {/*            >*/}
+            {/*                Register*/}
+            {/*            </button>*/}
+            {/*            {error && <p className="error-message">{error}</p>}*/}
+            {/*        </form>*/}
+            {/*    )}*/}
+            {/*</div>*/}
 
             <div className="right-section">
                 {isLoggedIn ? (
                     <>
+                        <button
+                            onClick={() => (window.location.href = "/session-page")}
+                            className="auth-button session-link"
+                        >
+                            Go to Session Page
+                        </button>
                         <span className="welcome-text">Welcome, {username}!</span>
                         <button onClick={handleLogout} className="auth-button logout">
                             Logout
@@ -100,7 +151,7 @@ const PageTitle = ({ title }) => {
                             type="button"
                             className="auth-button register"
                             onClick={() => {
-                                setError(""); // Clear errors when opening registration
+                                setError("");
                                 setShowRegisterDialog(true);
                             }}
                         >
@@ -110,6 +161,7 @@ const PageTitle = ({ title }) => {
                     </form>
                 )}
             </div>
+
 
             {showRegisterDialog && (
                 <RegisterDialog

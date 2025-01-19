@@ -99,3 +99,31 @@
         text-align: center;
     }
 }
+
+.auth-button.session-link {
+    background-color: #007bff; /* Example color to match theme */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px; /* Add space between the button and the welcome text */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button.session-link:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px; /* Adjust spacing between elements */
+}
+
+.welcome-text {
+    font-size: 16px;
+    color: #333;
+}
