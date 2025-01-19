@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SessionPage from "./pages/SessionPage";
 import HomePage from "./pages/HomePage";
+import BookPage from "./pages/BookPage";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                 {/* Define routes */}
                 <Route path="/" element={<HomePage />} />
                 <Route path="/session-page" element={<SessionPage />} />
+                <Route path="/book/:id" element={<BookPage />} />
             </Routes>
         </Router>
     );
